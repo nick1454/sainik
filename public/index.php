@@ -12,6 +12,7 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 header('Access-Control-Allow-Origin', '*');
 header('Content-Type','application/json');
 header('Access-Control-Allow-Methods','POST, GET, DELETE, PUT, PATCH, OPTIONS');
+header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 header('Access-Control-Max-Age','1728000');
 header('Content-Length','0');
 header('Content-Encoding','none');

@@ -56,19 +56,4 @@ class FeeController extends Controller
         ]);
     }
 
-    public function getPaymentList(Request $request)
-    {   
-
-        if (auth()->user()->role == 'student') {
-            $payments = Payment::with('student_info')->where('paid_by', auth()->user()->id)->get();
-        } else {
-            $payments = Payment::with('studentInfo')->get();
-        }
-
-        return response()->json([
-            'status' => '200',
-            'message' => 'Payment List',
-            'data' => $payments->count() ? $payments : []
-        ]);
-    }
 }
