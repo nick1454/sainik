@@ -23,4 +23,13 @@ class Payment extends Model
     {
         return $this->belongsTo(Student::class, 'paid_by');
     }
+
+    public function getReceiptUrlAttribute($value)
+    {
+        // return "https://res.cloudinary.com/demo/basketball_shot.jpg";
+        if ($value) {
+            return asset('/'.$value);
+        }
+        return null;
+    }
 }

@@ -107,17 +107,26 @@ class AuthController extends Controller
         ];
     }
 
-    public function authUser(Request $request) {
+    public function authUser(Request $request) 
+    {
         return Auth::user();
     }
 
-    private function generateRandomString($inputString, $length) {
+    private function generateRandomString($inputString, $length) 
+    {
         $randomString = '';
+
         $charactersLength = strlen($inputString);
         for ($i = 0; $i < $length; $i++) {
             $randomCharacter = $inputString[rand(0, $charactersLength - 1)];
             $randomString .= $randomCharacter;
         }
         return $randomString;
+    }
+
+    public function apiLogout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 }
