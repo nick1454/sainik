@@ -14,7 +14,9 @@ class FeeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'student' => 'required|integer',
-            'amount' => 'required|decimal:0,2',
+            'admission' => 'required|decimal:0,2',
+            'tution' => 'required|decimal:0,2',
+            'transport' => 'required|decimal:0,2',
             'discount' => 'required|decimal:0,2',
             'receipt' => 'required|file',
         ]);
@@ -33,10 +35,9 @@ class FeeController extends Controller
         $receipt = '';
 
         if ($request->has('receipt') && $request->receipt) {
-            $receipt = $request->receipt;
             $file = $request->file('receipt');
             $fileName = $latestId . '_' . str_replace(' ','_',$file->getClientOriginalName());
-            $receipt = $file->storeAs('/fee-receipt', $fileName);
+            $receipt = $file->storeAs('/fee-receipt', $fileName,'public');
         }
 
         Payment::create([

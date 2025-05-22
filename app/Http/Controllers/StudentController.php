@@ -111,10 +111,10 @@ class StudentController extends Controller
     {
         if ($request->has('status') && $request->has('answer')) {
             $attemptedQuestion = StudentTest::where('user_id',auth()->user()->id)
-                                                ->where('student_test_attempt_id',session('attempt_id'))
-                                                ->where('exam_id',session('exam_id'))
-                                                ->where('question_id', $request->question_id)
-                                                ->first();
+                                    ->where('student_test_attempt_id',session('attempt_id'))
+                                    ->where('exam_id',session('exam_id'))
+                                    ->where('question_id', $request->question_id)
+                                    ->first();
 
             if (!$attemptedQuestion) {
                 StudentTest::create([

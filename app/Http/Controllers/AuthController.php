@@ -109,7 +109,22 @@ class AuthController extends Controller
 
     public function authUser(Request $request) 
     {
-        return Auth::user();
+        if (auth()->user()) {
+            $response = [
+                'message' => 'login success',
+                'data' => ['user' => auth()->user()],
+                'status' => '200',
+            ];
+        } else {
+            $response = [
+                'message' => 'No authenticated user found',
+                'data' => [],
+                'status' => '404',
+             ];
+        }
+
+
+        return $response;
     }
 
     private function generateRandomString($inputString, $length) 

@@ -102,13 +102,13 @@ class AdminController extends Controller
 
     public function showTestForm(Request $request,$id = '')
     {   
-        // if (!session()->has('exam_id') || !session('exam_id')) {
+        if (!session()->has('exam_id') || !session('exam_id')) {
             if (!$request->has('exam_id') || !$request->exam_id) {
                 $exams = Exam::get();
                 return view('test.selectexam', compact('exams'));
-            // } else {
-            //     session(['exam_id' => $request->exam_id]);
-            // }
+            } else {
+                session(['exam_id' => $request->exam_id]);
+            }
         }
 
         $test = '';

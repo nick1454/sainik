@@ -26,9 +26,8 @@ class Payment extends Model
 
     public function getReceiptUrlAttribute($value)
     {
-        // return "https://res.cloudinary.com/demo/basketball_shot.jpg";
         if ($value) {
-            return asset('/'.$value);
+            return asset($value);
         }
         return null;
     }
