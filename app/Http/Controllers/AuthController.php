@@ -120,7 +120,7 @@ class AuthController extends Controller
                 'message' => 'No authenticated user found',
                 'data' => [],
                 'status' => '404',
-             ];
+            ];
         }
 
 
@@ -141,7 +141,16 @@ class AuthController extends Controller
 
     public function apiLogout(Request $request)
     {
-        Auth::logout();
-        return redirect('/login');
+        auth()->user()->update([
+            'token' => null
+        ]);
+
+        $response = [
+            'message' => 'User Logged Out',
+            'data' => [],
+            'status' => '200',
+        ];
+
+        return $response;
     }
 }
