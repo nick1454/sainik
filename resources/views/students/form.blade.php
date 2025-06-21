@@ -123,10 +123,20 @@
                   <input type="hidden" id="exam-id" name="examId">
                   @csrf
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Excel Upload</h5>
-                      <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">Excel Upload</h5>
+                    <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
+
                   <div class="modal-body">
+                    <div>
+                      Excel must contain following columns in this order:
+                      <br />
+                      <ol>
+                        <li>Name</li>
+                        <li>Father's name</li>
+                        <li>Class</li>
+                      </ol>
+                    </div>
                     <input type="file" class="form-control" name="file">
                   </div>
                   <div class="modal-footer">
