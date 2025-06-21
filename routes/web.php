@@ -33,11 +33,13 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/admin/test/{id}/store', ['App\Http\Controllers\AdminController','saveTest'])->name('admin.test.update');
     Route::get('/admin/test/{id?}/destroy', ['App\Http\Controllers\AdminController','deleteTest'])->name('admin.test.destroy');
 
-    Route::get('/admin/student', ['App\Http\Controllers\AdminController','showStudentForm'])->name('admin.student.form');
+    Route::get('/admin/student/form', ['App\Http\Controllers\AdminController','showStudentForm'])->name('admin.student.form');
     Route::get('/admin/{id?}/student', ['App\Http\Controllers\AdminController','showStudentForm'])->name('admin.student.form.edit');
     Route::post('/admin/student/store', ['App\Http\Controllers\AdminController','storeStudent'])->name('admin.student.add');
     Route::post('/admin/student/{id?}/store', ['App\Http\Controllers\AdminController','storeStudent'])->name('admin.student.update');
     Route::get('/admin/student/{id?}/destroy', ['App\Http\Controllers\AdminController','deleteStudent'])->name('admin.student.destroy');
+    Route::post('/admin/student/excel/add', ['App\Http\Controllers\AdminController','addStudentsFromExcel'])->name('admin.student.excel.add');
+
 
     Route::get('/admin/exam', ['App\Http\Controllers\AdminController','showExamForm'])->name('admin.exam.form');
     Route::post('/admin/exam/store', ['App\Http\Controllers\AdminController','saveExam'])->name('admin.exam.save');
@@ -50,6 +52,12 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/reports/student-test-attempt', ['App\Http\Controllers\AdminController','studentTestAttempt'])->name('admin.reports.studenttestattempt');
     Route::get('/admin/reports/student-test/{examid?}', ['App\Http\Controllers\AdminController','studentTest'])->name('admin.reports.studenttest');
     Route::get('/admin/reports/student-test-question', ['App\Http\Controllers\AdminController','studentTestQuestion'])->name('admin.reports.studenttestquestion');
+
+    Route::get('/admin/feestructure', ['App\Http\Controllers\FeeStructureController','index'])->name('admin.feestructure.form');
+    Route::post('/admin/feestructure/store', ['App\Http\Controllers\FeeStructureController','saveFeeStructure'])->name('admin.feestructure.save');
+    Route::get('/admin/{id}/feestructure', ['App\Http\Controllers\FeeStructureController','index'])->name('admin.feestructure.form.edit');
+    Route::post('/admin/feestructure/{id?}/store', ['App\Http\Controllers\FeeStructureController','saveFeeStructure'])->name('admin.feestructure.update');
+    Route::get('/admin/feestructure/{id?}/destroy', ['App\Http\Controllers\FeeStructureController','deleteFeeStructure'])->name('admin.feestructure.destroy');
 });
 
 Route::middleware(['student'])->group(function () {

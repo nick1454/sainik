@@ -27,8 +27,18 @@
     .navbar-toggler {
       display: block !important;
     }
-    </style>
-    @yield('page_style')
+    .fee-block {
+      border: 1px solid #8ee3ff;
+      padding: 5px;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .brand-logo-mini {
+      height: 47px;
+      width: 37px;
+    }
+  </style>
+  @yield('page_style')
 </head>
 <body>
 <div class="container-scroller">

@@ -7,6 +7,15 @@
               <div class="card scrollable-div"  >
                 <div class="card-body">
                   <h4 class="card-title">Add Student</h4>
+                  <button 
+                    type="button" 
+                    class="btn btn-success btn-sm" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#exampleModal"
+                  >
+                    <i class="md md-file-excel"></i>
+                    Excel Upload
+                  </button>
                   @if (session()->has('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>  
                   @endif
@@ -105,4 +114,36 @@
             </div>
           </div>
         </div>
+
+        <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <form action="{{ route('admin.student.excel.add') }}" enctype="multipart/form-data" method="post">
+                  <input type="hidden" id="exam-id" name="examId">
+                  @csrf
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Excel Upload</h5>
+                      <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="file" class="form-control" name="file">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  <!-- End Modal -->
+@endsection
+@section('page_script')
+  <script>
+    // function (id) {
+    //   console.log(id);
+    //   document.getElementById('exam-id').value = id;
+    // }
+  </script>
 @endsection

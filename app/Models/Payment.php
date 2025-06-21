@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Controller;
 
 class Payment extends Model
 {
@@ -17,6 +18,10 @@ class Payment extends Model
         'status',
         'paid_by',
         'receipt_url',
+        'balance_payment',
+        'fee_structure_id',
+        'payment_for_month',
+        'payment_for_year'
     ];
 
     public function studentInfo()
@@ -29,6 +34,17 @@ class Payment extends Model
         if ($value) {
             return asset($value);
         }
+
         return null;
+    }
+
+    public function feeStructure()
+    {
+        return $this->belongsTo(FeeStructure::class,'fee_structure_id','id');
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(Classes::class, 'class_id');
     }
 }

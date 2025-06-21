@@ -26,8 +26,8 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="{{ asset('images/logo.svg') }}" alt="logo">
+              <div class="brand-logo d-flex justify-content-center">
+                <img src="{{ asset('images/logo.jpg') }}" alt="logo" style="height: 94px; width: 75px;">
               </div>
               <h4>Hello! Welcome to Sainik School</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>

@@ -112,7 +112,7 @@ class AuthController extends Controller
         if (auth()->user()) {
             $response = [
                 'message' => 'login success',
-                'data' => ['user' => auth()->user()],
+                'data' => auth()->user(),
                 'status' => '200',
             ];
         } else {

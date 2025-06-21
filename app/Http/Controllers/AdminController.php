@@ -55,7 +55,6 @@ class AdminController extends Controller
 
     public function saveExam(Request $request,$id = '')
     {
-        echo "<pre>"; print_r($request->all()); die;
         $request->validate([
             'school' => ['required'],
             'name' => ['required'],
@@ -415,7 +414,8 @@ class AdminController extends Controller
         \Artisan::call('route:clear');
     }
 
-    function downloadStudentExcel($data) {
+    function downloadStudentExcel($data) 
+    {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -456,7 +456,8 @@ class AdminController extends Controller
         //return response()->download($filename,$filename,['Content-Type: text/xlxs']);
     }
 
-    function downloadStudentTestAttemptExcel($data) {
+    function downloadStudentTestAttemptExcel($data) 
+    {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -616,6 +617,54 @@ class AdminController extends Controller
             dd($data);
         }
         dd($request);
+    }
 
+    public function addStudentsFromExcel(Request $request)
+    {
+        $file = $request->file;
+        if (!$request->hasFile('file') && !$file) {
+            return back()->with('error','File not found.');
+        }
+
+        $file = $request->file('file');
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getPathname());
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $data = [];
+        $list = [];
+
+        foreach ($worksheet->getRowIterator(2) as $key => $row) {
+            $rowIndex = $row->getRowIndex();
+            if (!$worksheet->getCell("A$rowIndex")->getValue()) {
+                $list[$rowIndex] = 'Name is required.';
+                continue;
+            }
+
+            $data[$rowIndex] = [
+                'name' => $worksheet->getCell("A$rowIndex")->getValue() ?? '',
+                'father_name' => $worksheet->getCell("B$rowIndex")->getValue() ?? '',
+                'class' => $worksheet->getCell("C$rowIndex")->getValue() ?? '',
+            ];
+
+            $lastUserId = User::max('id');
+            $user = new User();
+            $user->name = $data[$rowIndex]['name'];
+            $user->email = $data[$rowIndex]['name'].($lastUserId+1).'@sainikschool.com';
+            $user->password = bcrypt('123');
+            $user->save();
+
+            $student = new Student();
+            $student->user_id = $user->id;
+            $student->name = $data[$rowIndex]['name'];
+            $student->father_name = $data[$rowIndex]['father_name'];
+            $student->class = $data[$rowIndex]['class'];
+            $student->save();
+        }
+
+        if (count($list)) {
+            return back()->with('error', $list);
+        }
+
+        return back()->with('success','Students added successfully.');
     }
 }
